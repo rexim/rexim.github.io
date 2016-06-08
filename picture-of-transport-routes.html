@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="rexim" />
+    <meta name="description" content="A post about one interesting task I was doing at work." />
+  
+
+    <title>The Picture of City Routes - Little Corner of the Internet</title>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/default.highlight-8.0-lisp.css" type="text/css" />
+
+    <script type="text/javascript" src="/js/moment-2.4.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/js/highlight-8.0-lisp.min.js"></script>
+    <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      });
+    </script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </head>
+  <body>
+    <h1 class="header">
+      <a class="logo-title" href="/">Little Corner of the Internet</a>
+    </h1>
+
+    
+    <div class="post">
+      <h1 class="post-header">
+        <a class="post-title" href="/picture-of-transport-routes.html">The Picture of City Routes</a>
+      </h1>
+
+      <div class="post-duration duration" title="2014-03-02T16:16:49+07:00">
+        2014-03-02T16:16:49+07:00
+      </div>
+
+      <div class="post-content">
+        <p>I was participating in development of our local directory of
+organizations with a city map like <a href="http://2gis.com/">2gis</a>. My last
+task was probably the most interesting task for the whole year of
+work. I was contributing to a part of our infrastructure intended for
+searching the shortest paths on transport routes of a city.</p>
+
+<p>Building a route graph from the database is an expensive operation, so
+sometimes we cache it to a binary file. For a visual debug purpose, I
+created
+<a href="https://github.com/rexim/routes-drawer">this little utility</a>. It
+takes the binary file as an input, renders the graph, and dumps the
+result to a PNG file. Here is an example:</p>
+
+<p><img src="/images/rostov-on-don.png" alt="Rostov-on-Don" /></p>
+
+<p>This is
+<a href="http://en.wikipedia.org/wiki/Rostov-on-Don">Rostov-on-Don</a>. Red lines
+are transport edges, green lines are walk edges. Here are some more
+cities:</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Orenburg">Orenburg</a>:</p>
+
+<p><img src="/images/orenburg.png" alt="Orenburg" /></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Orsk">Orsk</a>:</p>
+
+<p><img src="/images/orsk.png" alt="Orsk" /></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Surgut">Surgut</a>:</p>
+
+<p><img src="/images/surgut.png" alt="Surgut" /></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Tula,_Russia">Tula</a>:</p>
+
+<p><img src="/images/tula.png" alt="Tula" /></p>
+
+      </div>
+    </div>
+
+
+    <div class="footer">
+      <div class="right-cell">
+        <span class="copyright">
+        
+        
+        
+          Copyright Bullshit &copy; 2014-2015
+        
+        </span>
+      </div>
+      <div class="left-cell">
+        <a id="email-button" class="fa fa-envelope contact-icon" data-email="cmV4aW1rdXRAZ21haWwuY29tCg==" href="mailto:{email}"></a>
+        <a class="fa fa-github-alt contact-icon" href="https://github.com/rexim"></a>
+        <a class="fa fa-bitbucket contact-icon" href="https://bitbucket.org/rexim"></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <script type="text/javascript">
+      $("div.duration").text(function(index, text) {
+          return "was published " + moment($.trim(text)).fromNow();
+      });
+
+      $("#email-button").attr("href", function(index, attr) {
+          return "mailto:" + atob($(this).attr("data-email"));
+      });
+    </script>
+  </body>
+</html>
+

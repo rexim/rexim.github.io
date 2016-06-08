@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="rexim" />
+    <meta name="description" content="A simple explanation of the Liskov Substitution Priciple." />
+  
+
+    <title>Liskov Substitution Principle - Little Corner of the Internet</title>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/default.highlight-8.0-lisp.css" type="text/css" />
+
+    <script type="text/javascript" src="/js/moment-2.4.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/js/highlight-8.0-lisp.min.js"></script>
+    <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      });
+    </script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </head>
+  <body>
+    <h1 class="header">
+      <a class="logo-title" href="/">Little Corner of the Internet</a>
+    </h1>
+
+    
+    <div class="post">
+      <h1 class="post-header">
+        <a class="post-title" href="/liskov-substitution-principle.html">Liskov Substitution Principle</a>
+      </h1>
+
+      <div class="post-duration duration" title="2013-12-19T20:10:38+07:00">
+        2013-12-19T20:10:38+07:00
+      </div>
+
+      <div class="post-content">
+        <p><!-- OMG, markdown sucks! -->
+<img src="images/LSP.png"
+     class="left-float-img"
+     style="width: 50%;"
+     alt="Lumpy Space Princess" /></p>
+
+<p>The most mysterious <a href="http://en.wikipedia.org/wiki/SOLID">SOLID</a>
+principle for me was always the third one. The
+<a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">Liskov Substitution Principle</a>
+(LSP). I knew that classical example about deriving Square from
+Rectangle, but I didn't understand why it is violation of LSP.</p>
+
+<p>The principle has a pretty simple idea. A class is not simply a set of
+methods and fields, there is also a number of assumptions about
+them. These are often called properties. And when we use the class
+somewhere we usually rely on these properties. Let's consider as an
+example the following class:</p>
+
+<pre><code>public class Date {
+  ...
+  public int getMonthNumber() { ... }
+  ...
+}
+</code></pre>
+
+<p>The method <code>getMonthNumber()</code> must return an integer that has a
+property of lying on the interval <code>[1 .. 12]</code>. As you can see, a
+property is something beyond method's signature. It can't be checked
+at compile time. We should enforce it ourselves.</p>
+
+<p>It's pretty simple example, but I think it is enough to understand
+what property is. Now we can formalize the idea of LSP:</p>
+
+<blockquote>
+  <p>A subclass of a class should derive its properties as well as its
+  methods and fields. Thus an object of the class can be safely
+  substituted by an object of the subclass without violating
+  correctness of the program.</p>
+</blockquote>
+
+<p>Let's get back to the Square-Rectangle example. A square is actually a
+particular case of a rectangle. So <code>Rectangle</code> is a base class for
+<code>Square</code>. We can define it as follows:</p>
+
+<pre><code>public class Rectangle {
+    public void setWidth(int x) {
+        width = x;
+    }
+
+    public void setHeight(int x) {
+        height = x;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    protected int width = 0;
+    protected int height = 0;
+}
+</code></pre>
+
+<p>The class has two fields: <code>width</code> and <code>height</code>, and two setters and
+getters for them.</p>
+
+<p>Now we can define <code>Square</code> class by extending <code>Rectangle</code>. A square is
+a rectangle with equal sides. This can be achived by overriding
+<code>Rectangle</code>'s setters:</p>
+
+<pre><code>public class Square extends Rectangle {
+    @Override
+    public void setWidth(int x) {
+        super.setWidth(x);
+        height = x;
+    }
+
+    @Override
+    public void setHeight(int x) {
+        super.setHeight(x);
+        width = x;
+    }
+}
+</code></pre>
+
+<p>This approach has several problems. First of all, it is some sort of
+overhead to have <code>width</code> and <code>height</code> for <code>Square</code> since they're
+always equal. It would be better to have only one parameter which
+represents length of edge.</p>
+
+<p>The second problem is <code>Square</code> alters one of the <code>Rectangle</code>'s
+properties. <code>Rectangle</code>'s setters change only one
+parameter. <code>setWidget</code> changes only <code>width</code>, <code>setHeight</code> changes only
+<code>height</code>. But for <code>Square</code> every setter changes both parameters. The
+code which may use <code>Rectangle</code> probably doesn't even assume that. LSP
+has been violated!</p>
+
+<p>It is better not to treat <code>Rectangle</code> as a base class of <code>Square</code>.</p>
+
+      </div>
+    </div>
+
+
+    <div class="footer">
+      <div class="right-cell">
+        <span class="copyright">
+        
+        
+        
+          Copyright Bullshit &copy; 2014-2015
+        
+        </span>
+      </div>
+      <div class="left-cell">
+        <a id="email-button" class="fa fa-envelope contact-icon" data-email="cmV4aW1rdXRAZ21haWwuY29tCg==" href="mailto:{email}"></a>
+        <a class="fa fa-github-alt contact-icon" href="https://github.com/rexim"></a>
+        <a class="fa fa-bitbucket contact-icon" href="https://bitbucket.org/rexim"></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <script type="text/javascript">
+      $("div.duration").text(function(index, text) {
+          return "was published " + moment($.trim(text)).fromNow();
+      });
+
+      $("#email-button").attr("href", function(index, attr) {
+          return "mailto:" + atob($(this).attr("data-email"));
+      });
+    </script>
+  </body>
+</html>
+

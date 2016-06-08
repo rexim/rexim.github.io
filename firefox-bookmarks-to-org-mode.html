@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="rexim" />
+    <meta name="description" content="How export bookmarks from Mozilla Firefox to an org-mode document for Emacs." />
+  
+
+    <title>Export Bookmarks from Firefox to an Org-Mode Document - Little Corner of the Internet</title>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/default.highlight-8.0-lisp.css" type="text/css" />
+
+    <script type="text/javascript" src="/js/moment-2.4.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/js/highlight-8.0-lisp.min.js"></script>
+    <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      });
+    </script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </head>
+  <body>
+    <h1 class="header">
+      <a class="logo-title" href="/">Little Corner of the Internet</a>
+    </h1>
+
+    
+    <div class="post">
+      <h1 class="post-header">
+        <a class="post-title" href="/firefox-bookmarks-to-org-mode.html">Export Bookmarks from Firefox to an Org-Mode Document</a>
+      </h1>
+
+      <div class="post-duration duration" title="2014-01-05T00:42:22+07:00">
+        2014-01-05T00:42:22+07:00
+      </div>
+
+      <div class="post-content">
+        <p>I usually do everything on my desktop computer, but recently I
+purchased a new laptop (the old one I didn't use at all due to some
+hardware issues). And now I need to synchronize my internet bookmarks
+between two devices. I use Mozilla Firefox as my primary web-browser
+most of the time. And most of the bookmarks I store there. I've read
+about Firefox Sync, but I don't feel like I want to use such services.</p>
+
+<p>I decided to try to store my bookmarks in an
+<a href="http://orgmode.org/">org-mode</a> document. This approach has one
+significant advantage for me: an org-mode document is a text document,
+so it can be easily put under the version control. And the version
+control enables me to synchronize information between devices and
+keeps the history of changes I've made.</p>
+
+<p>First of all, I had to export my current bookmarks from Firefox to an
+org-mode document. Firefox allows us to export its bookmarks to a JSON
+file (<code>Bookmarks -&gt; Show All Bookmarks -&gt; Import and Backup -&gt;
+Backup...</code>).</p>
+
+<p>The structure of the JSON file is pretty obvious. It's a tree. Every
+node of the tree represents a bookmark or a bookmark folder. Also
+every node has several properties. The most important ones are:</p>
+
+<ul>
+<li><code>type</code> &mdash; determines the type of the node; the type
+<code>text/x-moz-place-container</code> means it's a bookmark folder; the type
+<code>text/x-moz-place</code> means it's a bookmark;</li>
+<li><code>children</code> &mdash; a list of child nodes;</li>
+<li><code>uri</code> &mdash; bookmarked URI; the nodes with the type
+<code>text/x-moz-place-container</code> usually don't have this property;</li>
+<li><code>title</code> &mdash; a title of a bookmark folder or a bookmark.</li>
+</ul>
+
+<p>With some properties omitted, the JSON looks like this:</p>
+
+<pre><code>{
+    "title": "Bookmarks Toolbar",
+    "type": "text/x-moz-place-container",
+    "children": [
+        {
+            "title": "Search Engines",
+            "type": "text/x-moz-place-container",
+            "children": [
+                {
+                    "title": "Google",
+                    "type": "text/x-moz-place",
+                    "uri": "https://www.google.com/"
+                },
+                {
+                    "title": "Yandex",
+                    "type": "text/x-moz-place",
+                    "uri": "http://www.yandex.com/"
+                }
+            ]
+        },
+        {
+            "title": "Social Networks",
+            "type": "text/x-moz-place-container",
+            "children": [
+                {
+                    "title": "Twitter",
+                    "type": "text/x-moz-place",
+                    "uri": "https://twitter.com/"
+                },
+                {
+                    "title": "Facebook",
+                    "type": "text/x-moz-place",
+                    "uri": "https://www.facebook.com/"
+                }
+            ]
+        }
+    ]
+}
+</code></pre>
+
+<p>It's enough to write a simple program which parses the JSON,
+recursively traverses the tree and produces an org-mode document.</p>
+
+<p>I wrote
+<a href="https://gist.github.com/rexim/8257108">a simple python script</a> which
+does this. It reads the JSON from stdin and writes the org-mode
+document to stdout. It translates folders to
+<a href="http://orgmode.org/manual/Headlines.html">headlines</a> and bookmarks to
+<a href="http://orgmode.org/manual/Plain-lists.html">list items</a>.</p>
+
+<p>The script will convert the above JSON into the following org-mode
+document:</p>
+
+<pre><code>* Bookmarks Toolbar
+** Search Engines
+   - [[https://www.google.com/][Google]]
+   - [[http://www.yandex.com/][Yandex]]
+** Social Networks
+   - [[https://twitter.com/][Twitter]]
+   - [[https://www.facebook.com/][Facebook]]
+</code></pre>
+
+      </div>
+    </div>
+
+
+    <div class="footer">
+      <div class="right-cell">
+        <span class="copyright">
+        
+        
+        
+          Copyright Bullshit &copy; 2014-2015
+        
+        </span>
+      </div>
+      <div class="left-cell">
+        <a id="email-button" class="fa fa-envelope contact-icon" data-email="cmV4aW1rdXRAZ21haWwuY29tCg==" href="mailto:{email}"></a>
+        <a class="fa fa-github-alt contact-icon" href="https://github.com/rexim"></a>
+        <a class="fa fa-bitbucket contact-icon" href="https://bitbucket.org/rexim"></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <script type="text/javascript">
+      $("div.duration").text(function(index, text) {
+          return "was published " + moment($.trim(text)).fromNow();
+      });
+
+      $("#email-button").attr("href", function(index, attr) {
+          return "mailto:" + atob($(this).attr("data-email"));
+      });
+    </script>
+  </body>
+</html>
+

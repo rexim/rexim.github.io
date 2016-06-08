@@ -1,0 +1,223 @@
+@font-face {
+    font-family: 'Fenix';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Fenix'), local('Fenix-Regular'), url(../fonts/Fenix.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Oxygen Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Oxygen Mono'), local('OxygenMono-Regular'), url(../fonts/Oxygen-Mono.ttf) format('truetype');
+}
+
+.left-cell {
+    float: left;
+    text-align: left;
+}
+
+.right-cell {
+    float: right;
+    text-align: right;
+}
+
+.clear {
+    clear: both;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    margin: auto;
+    width: 720px;
+    font-family: 'Fenix';
+    font-size: 20px;
+    color: black;
+}
+
+.logo-title {
+    font-size: 60px;
+    color: black;
+}
+
+.header {
+    margin-top: 30px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.33);
+}
+
+.post {
+    margin-top: 50px;
+}
+
+.post-header {
+    text-align: center;
+}
+
+.post-title {
+    font-size: 40px;
+    color: #300;
+}
+
+.post-duration {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.post-content blockquote {
+    padding-left: 20px;
+    border-left: 1px solid #300;
+    color: #444;
+}
+
+.post-content strong {
+    font-weight: bold;
+}
+
+.post-content em {
+    font-style: italic;
+}
+
+.post-content a {
+    color: rgb(22, 22, 255);
+    border-bottom: 1px solid rgba(22, 22, 255, 0.33);
+}
+
+.post-content a:visited {
+    color: rgb(22, 22, 66);
+    border-bottom: 1px solid rgba(22, 22, 66, 0.33);
+}
+
+.post-content p {
+    margin-top: 20px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.post-content img {
+    max-width: 720px;
+}
+
+.post-content h1 {
+    font-size: 35px;
+    color: #300;
+    margin-top: 20px;
+}
+
+.post-content h2 {
+    font-size: 30px;
+    color: #300;
+    margin-top: 20px;
+}
+
+.post-content h3 {
+    font-size: 25px;
+    color: #300;
+    margin-top: 20px;
+}
+
+.post-content h4 {
+    font-size: 20px;
+    color: #300;
+    margin-top: 20px;
+}
+
+.post-content pre {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.post-content code {
+    font-family: "Oxygen Mono";
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.post-content ol {
+    margin-top: 20px;
+    line-height: 1.5;
+    list-style: decimal inside;
+}
+
+.post-content ul {
+    margin-top: 20px;
+    line-height: 1.5;
+}
+
+.post-content ul li {
+    list-style: disc inside;
+}
+
+.splash {
+    margin-top: 50px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.footer {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.archive-paginator {
+    margin-top: 50px;
+}
+
+.archive-page {
+    margin-right: 10px;
+    padding: 6px;
+}
+
+.archive-current-page {
+    margin-right: 10px;
+    border: black solid 1px;
+    padding: 5px;
+}
+
+.archive-title {
+    font-size: 40px;
+    color: #300;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.archive {
+    margin-top: 50px;
+}
+
+.archive-entry {
+    margin-top: 20px;
+}
+
+.archive-entry-title {
+    font-size: 25px;
+    color: #300;
+}
+
+.archive-entry-duration {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.contact-icon {
+    color: black;
+    margin-right: 5px;
+}
+
+#disqus_thread {
+    margin-top: 50px;
+}
+
+.left-float-img {
+    float: left;
+    margin-right: 20px;
+}
+
+.right-float-img {
+    float: right;
+    margin-left: 20px;
+}

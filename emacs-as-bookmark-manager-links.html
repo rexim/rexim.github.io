@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="rexim" />
+    <meta name="description" content="Convenient way to bookmark internet links in an org-mode document." />
+  
+
+    <title>Emacs as a Bookmark Manager &mdash; Inserting New Links - Little Corner of the Internet</title>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/default.highlight-8.0-lisp.css" type="text/css" />
+
+    <script type="text/javascript" src="/js/moment-2.4.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/js/highlight-8.0-lisp.min.js"></script>
+    <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      });
+    </script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </head>
+  <body>
+    <h1 class="header">
+      <a class="logo-title" href="/">Little Corner of the Internet</a>
+    </h1>
+
+    
+    <div class="post">
+      <h1 class="post-header">
+        <a class="post-title" href="/emacs-as-bookmark-manager-links.html">Emacs as a Bookmark Manager &mdash; Inserting New Links</a>
+      </h1>
+
+      <div class="post-duration duration" title="2014-02-08T19:47:00+07:00">
+        2014-02-08T19:47:00+07:00
+      </div>
+
+      <div class="post-content">
+        <p><!-- OMG, markdown sucks! -->
+<img src="images/emacs-deal-with-it.png"
+     class="left-float-img"
+     style="width: 38%;"
+     alt="Emacs deal with it" /></p>
+
+<p>After exporting my bookmarks
+<a href="/firefox-bookmarks-to-org-mode.html">from Firefox to an org-mode document</a>
+I started to use Emacs as a bookmark manager. After a couple of days,
+I realized that I needed to automate some things. I didn't want to
+just insert new URLs to the org-mode document. I&nbsp;wanted to insert
+them as the org-mode
+<a href="http://orgmode.org/manual/Link-format.html">links</a> with informative
+descriptions (for example, the title of the web-page). Apparently, it
+is more complex than just <code>CTRL+C</code> and then <code>CTRL+V</code> the URL. I wanted
+the following:</p>
+
+<ol>
+<li>I copy a URL to the clipboard,</li>
+<li>switch to the Emacs window,</li>
+<li>press some magic keys,</li>
+<li>and Emacs inserts <code>[[URL][title of the web-page]]</code>.</li>
+</ol>
+
+<p>That would be awesome! So I implemented a function which can be bound
+to those magic keys:</p>
+
+<pre><code>(defun cliplink ()
+  ;; Of course, this function is interactive. :)
+  (interactive)
+  (let (;; Remembering the current buffer, 'cause it is a destination
+        ;; buffer we are inserting the org-link to.
+        (dest-buffer (current-buffer))
+        ;; Getting URL from the clipboard. Since it may contain
+        ;; some text properties we are using substring-no-properties
+        ;; function.
+        (url (substring-no-properties (current-kill 0))))
+    ;; Retrieving content by URL.
+    (url-retrieve
+     url
+     ;; Performing an action on the retrieved content.
+     `(lambda (s)
+        (perform-cliplink ,dest-buffer ,url
+                          (buffer-string))))))
+</code></pre>
+
+<p>As you can see, it's just a skeleton. The main work is done by
+<code>perform-cliplink</code> function:</p>
+
+<pre><code>(defun perform-cliplink (buffer url content)
+  (let* (;; Decoding the content from UTF-8.
+         (decoded-content (decode-coding-string content 'utf-8))
+         ;; Extrating and preparing the title.
+         (title (prepare-cliplink-title
+                 (extract-title-from-html decoded-content))))
+    ;; Inserting org-link.
+    (with-current-buffer buffer
+      (insert (format "[[%s][%s]]" url title)))))
+</code></pre>
+
+<p>Everything is clear except two functions: <code>extract-title-from-html</code>
+and <code>prepare-cliplink-title</code>. Let's have a look at the first one:</p>
+
+<pre><code>(defun extract-title-from-html (html)
+  (let (;; Start index of the title.
+        (start (string-match "&lt;title&gt;" html))
+        ;; End index of the title.
+        (end (string-match "&lt;/title&gt;" html))
+        ;; Amount of characters to skip the openning title tag.
+        (chars-to-skip (length "&lt;title&gt;")))
+    ;; If title is found ...
+    (if (and start end (&lt; start end))
+        ;; ... extract it and return.
+        (substring html (+ start chars-to-skip) end)
+      nil)))
+</code></pre>
+
+<p>The second function is a bit more complex:</p>
+
+<pre><code>(defun prepare-cliplink-title (title)
+  (let (;; Table of replacements which make this title usable for
+        ;; org-link. Can be extended.
+        (replace-table '(("\\[" . "{")
+                         ("\\]" . "}")
+                         ("&amp;mdash;" . "—")))
+        ;; Maximum length of the title.
+        (max-length 77)
+        ;; Removing redundant whitespaces from the title.
+        (result (straight-string title)))
+    ;; Applying every element of the replace-table.
+    (dolist (x replace-table)
+      (setq result (replace-regexp-in-string (car x) (cdr x) result)))
+    ;; Cutting off the title according to its maximum length.
+    (when (&gt; (length result) max-length)
+      (setq result (concat (substring result 0 max-length) "...")))
+    ;; Returning result.
+    result))
+</code></pre>
+
+<p>So, the last function is <code>straight-string</code> which helps us to remove
+redundant whitespace characters. Here is its implementation:</p>
+
+<pre><code>(defun straight-string (s)
+  ;; Spliting the string and then concatenating it back.
+  (mapconcat '(lambda (x) x) (split-string s) " "))
+</code></pre>
+
+<p>So much code! I hope it is not too hard to read. I just wanted to show
+my entire train of thoughts. I've put the complete code
+<a href="https://gist.github.com/rexim/8883151">here</a>.</p>
+
+<p><strong>UPD.</strong> Almost a year ago I decided to move this code out of my
+  <a href="https://github.com/rexim/emacs.rc">personal emacs config</a> and
+  create
+  <a href="https://github.com/rexim/org-cliplink">org-cliplink</a>. Currently, it
+  has much more features than the code in this post. Any bug reports
+  and PRs are welcome.</p>
+
+      </div>
+    </div>
+
+
+    <div class="footer">
+      <div class="right-cell">
+        <span class="copyright">
+        
+        
+        
+          Copyright Bullshit &copy; 2014-2015
+        
+        </span>
+      </div>
+      <div class="left-cell">
+        <a id="email-button" class="fa fa-envelope contact-icon" data-email="cmV4aW1rdXRAZ21haWwuY29tCg==" href="mailto:{email}"></a>
+        <a class="fa fa-github-alt contact-icon" href="https://github.com/rexim"></a>
+        <a class="fa fa-bitbucket contact-icon" href="https://bitbucket.org/rexim"></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <script type="text/javascript">
+      $("div.duration").text(function(index, text) {
+          return "was published " + moment($.trim(text)).fromNow();
+      });
+
+      $("#email-button").attr("href", function(index, attr) {
+          return "mailto:" + atob($(this).attr("data-email"));
+      });
+    </script>
+  </body>
+</html>
+

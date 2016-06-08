@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="rexim" />
+    <meta name="description" content="A post about transition color effect." />
+  
+
+    <title>Transition Color - Little Corner of the Internet</title>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/default.highlight-8.0-lisp.css" type="text/css" />
+
+    <script type="text/javascript" src="/js/moment-2.4.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/js/highlight-8.0-lisp.min.js"></script>
+    <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+      });
+    </script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </head>
+  <body>
+    <h1 class="header">
+      <a class="logo-title" href="/">Little Corner of the Internet</a>
+    </h1>
+
+    
+    <div class="post">
+      <h1 class="post-header">
+        <a class="post-title" href="/transition-color.html">Transition Color</a>
+      </h1>
+
+      <div class="post-duration duration" title="2014-04-19T20:20:06+07:00">
+        2014-04-19T20:20:06+07:00
+      </div>
+
+      <div class="post-content">
+        <p>The reason to write this post was a simple desire to code something
+and write about it :)</p>
+
+<p>So, the task is to implement transition color effect. We have to make
+an object smoothly change its color from some initial color to some
+target color during fixed time. We will use RGB color space.</p>
+
+<p>In RGB space a color is a 3D point. The first coordinate is red
+component of the color, the second one is green and the third one is
+blue. On the input of our transition color algorithm we have the
+initial color $S(R_S, G_S, B_S)$, the target color $T(R_T, G_T, B_T)$
+and duration of the transition $D$.</p>
+
+<p>We are going to reach the target color from the initial color in $N$
+steps. Let's name them as <em>transition steps</em>.</p>
+
+<p>Let $d_i$ be the duration of $i$-th transition step. Here are some
+properties of $d_i$:
+$$
+\begin{array}{c}
+d_i \leq D; \\
+\sum\limits_{i = 1}^N d_i = D;
+\end{array}
+$$</p>
+
+<p>Thus, $\frac{d_i}{D}$ is a part of the whole way from the initial
+color to the target color contributed by $i$-th transition step. After
+$i$ transition steps we have walked $F_i$ of the whole path where</p>
+
+<p>$$
+F_i = \sum\limits_{j = 1}^i \frac{d_i}{D};
+$$</p>
+
+<p>Let $W_i$ be the color on the $i$-th transition step, then</p>
+
+<p>$$
+\begin{array}{c}
+W_i = (R_i, G_i, B_i); \\
+R_i = R_S + F_i \cdot (R_T - R_S); \\
+G_i = G_S + F_i \cdot (G_T - G_S); \\
+B_i = B_S + F_i \cdot (B_T - B_S);
+\end{array}
+$$</p>
+
+<p>To make the transition color effect we are just walking through the
+$N$ transition steps until $W_i = T$. This can be easily implemented
+as a computer
+algorithm. <a href="https://github.com/rexim/transition-color">Here</a> is my
+implementation. Let's take a look at the screenshot of the UI:</p>
+
+<p><img src="/images/transition-color-implementation.png" alt="Transition Color Implementation" /></p>
+
+<p>The big rectangle shows the current color, the small one shows the
+target color. We can change the target color with the sliders. After
+pressing the "Go" button, the big rectangle will smoothly change its
+color according to the given target color.</p>
+
+<p>That's it!</p>
+
+      </div>
+    </div>
+
+
+    <div class="footer">
+      <div class="right-cell">
+        <span class="copyright">
+        
+        
+        
+          Copyright Bullshit &copy; 2014-2015
+        
+        </span>
+      </div>
+      <div class="left-cell">
+        <a id="email-button" class="fa fa-envelope contact-icon" data-email="cmV4aW1rdXRAZ21haWwuY29tCg==" href="mailto:{email}"></a>
+        <a class="fa fa-github-alt contact-icon" href="https://github.com/rexim"></a>
+        <a class="fa fa-bitbucket contact-icon" href="https://bitbucket.org/rexim"></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <script type="text/javascript">
+      $("div.duration").text(function(index, text) {
+          return "was published " + moment($.trim(text)).fromNow();
+      });
+
+      $("#email-button").attr("href", function(index, attr) {
+          return "mailto:" + atob($(this).attr("data-email"));
+      });
+    </script>
+  </body>
+</html>
+

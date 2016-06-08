@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+  <channel>
+    <title>Little Corner of the Internet</title>
+    <link>http://rexim.me/</link>
+    <description>Little Corner of the Internet</description>
+    <language>en-us</language>
+    <pubDate>Sat, 16 Aug 2014 23:05:48 +0700</pubDate>
+ 
+
+    <item>
+      <title><![CDATA[Emacs HOME for Windows]]></title>
+      <link>http://rexim.me/emacs-home-for-windows.html</link>
+      <description><![CDATA[About how Emacs finds the home directory under Windows and how configure that]]></description>
+      <pubDate>2015-02-18T01:24:33+06:00</pubDate>
+      <guid>http://rexim.me/emacs-home-for-windows.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[What's Next?]]></title>
+      <link>http://rexim.me/whats-next.html</link>
+      <description><![CDATA[What's next?]]></description>
+      <pubDate>2014-06-19T20:25:49+07:00</pubDate>
+      <guid>http://rexim.me/whats-next.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[Transition Color]]></title>
+      <link>http://rexim.me/transition-color.html</link>
+      <description><![CDATA[A post about transition color effect.]]></description>
+      <pubDate>2014-04-19T20:20:06+07:00</pubDate>
+      <guid>http://rexim.me/transition-color.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[An Attempt to Draw Something]]></title>
+      <link>http://rexim.me/attempt-to-draw-something.html</link>
+      <description><![CDATA[Just a little try to draw something.]]></description>
+      <pubDate>2014-03-13T23:25:59+07:00</pubDate>
+      <guid>http://rexim.me/attempt-to-draw-something.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[The Picture of City Routes]]></title>
+      <link>http://rexim.me/picture-of-transport-routes.html</link>
+      <description><![CDATA[A post about one interesting task I was doing at work.]]></description>
+      <pubDate>2014-03-02T16:16:49+07:00</pubDate>
+      <guid>http://rexim.me/picture-of-transport-routes.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[Gallery of Emacs Themes]]></title>
+      <link>http://rexim.me/gallery-of-emacs-themes.html</link>
+      <description><![CDATA[Gallery of emacs themes.]]></description>
+      <pubDate>2014-02-19T13:36:38+07:00</pubDate>
+      <guid>http://rexim.me/gallery-of-emacs-themes.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[Emacs as a Bookmark Manager &mdash; Inserting New Links]]></title>
+      <link>http://rexim.me/emacs-as-bookmark-manager-links.html</link>
+      <description><![CDATA[Convenient way to bookmark internet links in an org-mode document.]]></description>
+      <pubDate>2014-02-08T19:47:00+07:00</pubDate>
+      <guid>http://rexim.me/emacs-as-bookmark-manager-links.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[Export Bookmarks from Firefox to an Org-Mode Document]]></title>
+      <link>http://rexim.me/firefox-bookmarks-to-org-mode.html</link>
+      <description><![CDATA[How export bookmarks from Mozilla Firefox to an org-mode document for Emacs.]]></description>
+      <pubDate>2014-01-05T00:42:22+07:00</pubDate>
+      <guid>http://rexim.me/firefox-bookmarks-to-org-mode.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[Algorithms and Data Structures]]></title>
+      <link>http://rexim.me/algorithms-and-data-structures.html</link>
+      <description><![CDATA[A collection of links to posts about algorithms and data structures.]]></description>
+      <pubDate>2013-12-29T22:47:35+07:00</pubDate>
+      <guid>http://rexim.me/algorithms-and-data-structures.html</guid>
+    </item>
+
+    <item>
+      <title><![CDATA[Liskov Substitution Principle]]></title>
+      <link>http://rexim.me/liskov-substitution-principle.html</link>
+      <description><![CDATA[A simple explanation of the Liskov Substitution Priciple.]]></description>
+      <pubDate>2013-12-19T20:10:38+07:00</pubDate>
+      <guid>http://rexim.me/liskov-substitution-principle.html</guid>
+    </item>
+
+  </channel>
+</rss>

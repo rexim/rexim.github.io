@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://rexim.me/</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/emacs-home-for-windows.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/whats-next.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/transition-color.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/attempt-to-draw-something.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/picture-of-transport-routes.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/gallery-of-emacs-themes.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/emacs-as-bookmark-manager-links.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/firefox-bookmarks-to-org-mode.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/algorithms-and-data-structures.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>http://rexim.me/liskov-substitution-principle.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+</urlset>
