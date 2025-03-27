@@ -73,7 +73,7 @@ a:active {
     color: #EEE;
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-decoration-color: #73c936;
+    text-decoration-color: #f43841;
     transition: text-decoration-color 0.2s;
     text-underline-offset: 2px;
 } 
@@ -84,16 +84,21 @@ h2 a:link {
     text-decoration-thickness: 3px;
 }
 .logo {
+    border: none;
     position: absolute;
     background: #73c936;
     width: 45px;
     height: 45px;
-    left: -65px;
+    left: -70px;
     top: -5px;
     border-radius: 0%;
-    transition: border-radius 0.2s;
+    transition: all 0.2s;
 }
 .logo:hover {
-    transition: border-radius 0.2s;
     border-radius: 50%;
+}
+.logo:active {
+    background: #f43841;
+    border-radius: 0%;
+    transform: rotate(45deg);
 }
