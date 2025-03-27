@@ -50,6 +50,7 @@ a:link {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-decoration-color: #73c936;
+    transition: text-decoration-color 0.2s;
     text-underline-offset: 2px;
 }
 a:visited {
@@ -57,6 +58,7 @@ a:visited {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-decoration-color: #73c936;
+    transition: text-decoration-color 0.2s;
     text-underline-offset: 2px;
 }
 a:hover {
@@ -64,6 +66,7 @@ a:hover {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-decoration-color: #EEE;
+    transition: text-decoration-color 0.2s;
     text-underline-offset: 2px;
 }
 a:active {
@@ -71,6 +74,7 @@ a:active {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-decoration-color: #73c936;
+    transition: text-decoration-color 0.2s;
     text-underline-offset: 2px;
 } 
 h1 a:link {
@@ -87,12 +91,9 @@ h2 a:link {
     left: -65px;
     top: -5px;
     border-radius: 0%;
+    transition: border-radius 0.2s;
 }
 .logo:hover {
-    animation: s2c 0.2s;
-    animation-fill-mode: forwards;
-}
-@keyframes s2c {
-    from { border-radius: 0%;  }
-    to   { border-radius: 50%; }
+    transition: border-radius 0.2s;
+    border-radius: 50%;
 }
