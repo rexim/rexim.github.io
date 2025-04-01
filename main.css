@@ -103,10 +103,12 @@ h2 a:link {
     transition: all 0.2s;
 }
 .logo:hover,
+ li:has(a:hover)::before,
  body:has(.logo:hover) li::before {
     border-radius: 50%;
 }
 .logo:active,
+ li:has(a:active)::before,
  body:has(.logo:active) li::before {
     background: #f43841;
     border-radius: 0%;
