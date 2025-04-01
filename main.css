@@ -37,12 +37,20 @@ p {
 }
 ul {
     margin-bottom: 35px;
-    list-style-type: square;
 }
-li::marker {
-    color: #73c936;
+li::before {
+    content: '';
+    position: absolute;
+    --size: 0.8ex;
+    width: var(--size);
+    height: var(--size);
+    left: calc(-1ch - var(--size));
+    top: calc(0.5em - var(--size) / 4);
+    background-color: #73c936;
+    transition: all 0.2s;
 }
 li {
+    position: relative;
     margin-bottom: 4px;
 }
 a:link {
@@ -94,10 +102,12 @@ h2 a:link {
     border-radius: 0%;
     transition: all 0.2s;
 }
-.logo:hover {
+.logo:hover,
+ body:has(.logo:hover) li::before {
     border-radius: 50%;
 }
-.logo:active {
+.logo:active,
+ body:has(.logo:active) li::before {
     background: #f43841;
     border-radius: 0%;
     transform: rotate(45deg);
