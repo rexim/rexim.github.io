@@ -37,12 +37,20 @@ p {
 }
 ul {
     margin-bottom: 35px;
-    list-style-type: square;
+    list-style-type: none;
 }
-li::marker {
-    color: #73c936;
+li::before {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background-color: #73c936;
+    top: 0.5rem;
+    left: -17px;
+    transition: all 0.2s;
 }
 li {
+    position: relative;
     margin-bottom: 4px;
 }
 a:link {
@@ -94,9 +102,11 @@ h2 a:link {
     border-radius: 0%;
     transition: all 0.2s;
 }
+li:has(a:hover)::before,
 .logo:hover {
     border-radius: 50%;
 }
+li:has(a:active)::before,
 .logo:active {
     background: #f43841;
     border-radius: 0%;
