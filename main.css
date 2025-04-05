@@ -83,6 +83,7 @@ h2 a:link {
     top: -5px;
     border-radius: 0%;
     transition: all 0.2s;
+    user-select: none;
 }
 li:has(a:hover)::before,
 .logo:hover,
