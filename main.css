@@ -2,12 +2,19 @@
     font-family: Alegreya;
     src: url(fonts/Alegreya-Regular.ttf);
 }
+:root {
+    --color-text: #EEE;
+    --color-background: #181818;
+    --color-primary: #73c936;
+    --color-secondary: #f43841;
+    --transition-duration: 0.2s;
+}
 body {
     width: 480px;
     margin: auto;
     position: relative;
-    background: #181818;
-    color: #EEE;
+    background: var(--color-background);
+    color: var(--color-text);
     font-family: Alegreya;
     font-size: 20px;
     line-height: 22px;
@@ -18,17 +25,17 @@ small {
     font-size: 16px;
 }
 h1 {
-    color: #EEE;
+    color: var(--color-text);
     font-size: 48px;
     margin-bottom: 45px;
 }
 h2 {
-    color: #EEE;
+    color: var(--color-text);
     font-size: 32px;
     margin-bottom: 40px;
 }
 h3 {
-    color: #EEE;
+    color: var(--color-text);
     font-size: 24px;
     margin-bottom: 35px;
 }
@@ -44,45 +51,45 @@ li::before {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #73c936;
+    background-color: var(--color-primary);
     top: 0.5rem;
     left: -21px;
-    transition: all 0.2s;
+    transition: all var(--transition-duration);
 }
 li {
     position: relative;
     margin-bottom: 4px;
 }
 a:link {
-    color: #EEE;
+    color: var(--color-text);
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-decoration-color: #73c936;
-    transition: text-decoration-color 0.2s;
+    text-decoration-color: var(--color-primary);
+    transition: text-decoration-color var(--transition-duration);
     text-underline-offset: 2px;
 }
 a:visited {
-    color: #EEE;
+    color: var(--color-text);
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-decoration-color: #73c936;
-    transition: text-decoration-color 0.2s;
+    text-decoration-color: var(--color-primary);
+    transition: text-decoration-color var(--transition-duration);
     text-underline-offset: 2px;
 }
 a:hover {
-    color: #EEE;
+    color: var(--color-text);
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-decoration-color: #EEE;
-    transition: text-decoration-color 0.2s;
+    text-decoration-color: var(--color-text);
+    transition: text-decoration-color var(--transition-duration);
     text-underline-offset: 2px;
 }
 a:active {
-    color: #EEE;
+    color: var(--color-text);
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-decoration-color: #f43841;
-    transition: text-decoration-color 0.2s;
+    text-decoration-color: var(--color-secondary);
+    transition: text-decoration-color var(--transition-duration);
     text-underline-offset: 2px;
 } 
 h1 a:link {
@@ -94,13 +101,13 @@ h2 a:link {
 .logo {
     border: none;
     position: absolute;
-    background: #73c936;
+    background: var(--color-primary);
     width: 45px;
     height: 45px;
     left: -70px;
     top: -5px;
     border-radius: 0%;
-    transition: all 0.2s;
+    transition: all var(--transition-duration);
 }
 
 li:has(a:hover)::before,
@@ -112,12 +119,12 @@ body:has(.logo:hover) li::before {
 li:has(a:active)::before,
 .logo:active,
 body:has(.logo:active) li::before {
-    background: #f43841;
+    background: var(--color-secondary);
     border-radius: 0%;
     transform: rotate(45deg);
 }
 
 body:has(.logo:active) a:link,
 body:has(.logo:active) a:visited {
-    text-decoration-color: #f43841;
+    text-decoration-color: var(--color-secondary);
 }
