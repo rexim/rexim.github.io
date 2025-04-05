@@ -42,11 +42,11 @@ ul {
 li::before {
     content: "";
     position: absolute;
-    width: 9px;
-    height: 9px;
+    width: 10px;
+    height: 10px;
     background-color: #73c936;
     top: 0.5rem;
-    left: -20px;
+    left: -21px;
     transition: all 0.2s;
 }
 li {
