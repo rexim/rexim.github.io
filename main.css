@@ -18,17 +18,14 @@ small {
     font-size: 16px;
 }
 h1 {
-    color: #EEE;
     font-size: 48px;
     margin-bottom: 45px;
 }
 h2 {
-    color: #EEE;
     font-size: 32px;
     margin-bottom: 40px;
 }
 h3 {
-    color: #EEE;
     font-size: 24px;
     margin-bottom: 35px;
 }
@@ -53,38 +50,23 @@ li {
     position: relative;
     margin-bottom: 4px;
 }
-a:link {
+a {
     color: #EEE;
+    transition: text-decoration-color 0.2s;
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-decoration-color: #73c936;
-    transition: text-decoration-color 0.2s;
     text-underline-offset: 2px;
 }
+a:link,
 a:visited {
-    color: #EEE;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
     text-decoration-color: #73c936;
-    transition: text-decoration-color 0.2s;
-    text-underline-offset: 2px;
 }
 a:hover {
-    color: #EEE;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
     text-decoration-color: #EEE;
-    transition: text-decoration-color 0.2s;
-    text-underline-offset: 2px;
 }
 a:active {
-    color: #EEE;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
     text-decoration-color: #f43841;
-    transition: text-decoration-color 0.2s;
-    text-underline-offset: 2px;
-} 
+}
 h1 a:link {
     text-decoration-thickness: 4px;
 }
@@ -102,13 +84,11 @@ h2 a:link {
     border-radius: 0%;
     transition: all 0.2s;
 }
-
 li:has(a:hover)::before,
 .logo:hover,
 body:has(.logo:hover) li::before {
     border-radius: 50%;
 }
-
 li:has(a:active)::before,
 .logo:active,
 body:has(.logo:active) li::before {
@@ -116,7 +96,6 @@ body:has(.logo:active) li::before {
     border-radius: 0%;
     transform: rotate(45deg);
 }
-
 body:has(.logo:active) a:link,
 body:has(.logo:active) a:visited {
     text-decoration-color: #f43841;
