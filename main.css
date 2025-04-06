@@ -121,3 +121,13 @@ body:has(.logo:active) a:link,
 body:has(.logo:active) a:visited {
     text-decoration-color: #f43841;
 }
+
+body:has(#title a:hover) .logo {
+    border-radius: 50%;
+}
+
+body:has(#title a:active) .logo {
+    background: #f43841;
+    border-radius: 0%;
+    transform: rotate(45deg);
+}
