@@ -107,7 +107,7 @@ li:has(a:hover)::before,
 .logo:hover,
 body:has(.logo:hover) li::before {
     border-radius: 50%;
-    transform: scale(calc(2/sqrt(3.14159)));
+    transform: scale(calc(2/sqrt(pi)));
 }
 
 li:has(a:active)::before,
@@ -115,7 +115,7 @@ li:has(a:active)::before,
 body:has(.logo:active) li::before {
     background: #f43841;
     border-radius: 0%;
-    transform: rotate(45deg) scale(1);
+    transform: rotate(45deg);
 }
 
 body:has(.logo:active) a:link,
