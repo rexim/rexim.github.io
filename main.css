@@ -61,7 +61,43 @@ li::before {
 li {
     position: relative;
     margin-bottom: 4px;
+    transform-origin: left;
+    transition: all .3s cubic-bezier(.93,1.04,0,.82);
 }
+
+body li:hover {
+    transform: scale(1.3);
+}
+
+body:has(li:hover) li {
+ opacity: .4;
+  filter: grayscale(1) blur(3px);
+}
+
+li:hover,
+li:hover a {
+    opacity: 1 !important;
+  filter: none !important;
+}
+
+li:hover a {
+    text-decoration-color: #73c936;
+}
+
+li:active a {
+    text-decoration-color: #f43841;
+}
+
+body:has(#title:hover) .logo {
+    border-radius: 50%;
+}
+
+body:has(#title:active) .logo {
+    border-radius: 0%;
+    transform: rotate(45deg);
+    background: #f43841;
+}
+
 a:link {
     color: #EEE;
     text-decoration: underline;
