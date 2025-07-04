@@ -62,7 +62,7 @@ li {
     position: relative;
     margin-bottom: 4px;
     transform-origin: left;
-    transition: all .3s cubic-bezier(.93,1.04,0,.82);
+    transition: all .3s cubic-bezier(.41,1.94,0,1);
 }
 
 body li:hover {
