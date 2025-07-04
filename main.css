@@ -63,6 +63,7 @@ li::before {
     transition: all 0.2s;
 }
 li {
+    width: fit-content;
     position: relative;
     margin-bottom: 4px;
     transform-origin: left;
