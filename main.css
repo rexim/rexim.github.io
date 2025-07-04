@@ -173,3 +173,42 @@ body:has(.logo:active) a:link,
 body:has(.logo:active) a:visited {
     text-decoration-color: var(--danger);
 }
+
+.loading section {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    pointer-events: none;
+}
+
+.loading {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    pointer-events: none
+}
+
+.loading .bottom {
+    transform: rotate(180deg);
+}
+
+.loading section div {
+    width: 100%;
+    height: 100vh;
+    background: var(--standard);
+    animation: loader 2s cubic-bezier(.0,1.16,.4,.93) forwards;
+    animation-delay: var(--delay);
+}
+
+@keyframes loader {
+    0% {
+        height: 100vh;
+    }
+    100% {
+        height: 0vh;
+    }
+}
