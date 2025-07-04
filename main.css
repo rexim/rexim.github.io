@@ -4,7 +4,7 @@
 }
 :root {
     --standard: #73c936;
-    --danger: var(--danger);
+    --danger: var(#f43841);
 }
 body {
     width: 1000%;
