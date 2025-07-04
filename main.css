@@ -150,13 +150,15 @@ h2 a:link {
 
 li:has(a:hover)::before,
 .logo:hover,
-body:has(.logo:hover) li::before {
+body:has(.logo:hover) li::before,
+li:hover::before {
     border-radius: 50%;
 }
 
 li:has(a:active)::before,
 .logo:active,
-body:has(.logo:active) li::before {
+body:has(.logo:active) li::before,
+li:active::before {
     background: #f43841;
     border-radius: 0%;
     transform: rotate(45deg);
