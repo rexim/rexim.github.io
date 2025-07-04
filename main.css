@@ -200,15 +200,19 @@ body:has(.logo:active) a:visited {
     width: 100%;
     height: 100vh;
     background: var(--standard);
-    animation: loader 2s cubic-bezier(.0,1.16,.4,.93) forwards;
+    animation: loader .4s cubic-bezier(0.8, 0, 0.2, 1) forwards;
     animation-delay: var(--delay);
+    transform-origin: top;
+    will-change: transform, opacity;
 }
 
 @keyframes loader {
     0% {
-        height: 100vh;
+        transform: scaleY(1);
+        opacity: 1;
     }
     100% {
-        height: 0vh;
+        transform: scaleY(0);
+        opacity: 0;
     }
 }
