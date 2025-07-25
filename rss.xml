@@ -1,0 +1,16 @@
+<rss version="2.0">
+  <channel>
+    <title>rexim</title>
+    <link>https://rexim.github.io/</link>
+    <description>Hi! My name is Alexey Kutepov. I'm also known as rexim, mixer, Tsoding, Zozin, and many other names. I'm a Recreational Programmer.</description>
+    <language>en-ru</language>
+    <generator>Hands (Yes, I modify this file manually)</generator>
+    <item>
+      <title>RSS Feed Added!</title>
+      <link>https://rexim.github.io/rss.xml</link>
+      <description>Now you can subscribe to the events on this website! I personally use https://newsboat.org/ because I am nerd like that.</description>
+      <pubDate>Fri, 25 Jul 2025 16:17:06 +0700</pubDate>
+      <guid>https://rexim.github.io/event/1753434551.json</guid>
+    </item>
+  </channel>
+</rss>
