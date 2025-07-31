@@ -32,4 +32,12 @@
     </ul>
     <small>&copy 2025 Alexey Kutepov</small>
   </body>
+  <script>
+    const anchors = document.getElementsByTagName("a");
+      for (let i = 0; i < anchors.length; i++) {
+        anchors[i].addEventListener("dragstart", function (e) {
+          e.preventDefault();
+        });
+      }
+  </script>
 </html>
