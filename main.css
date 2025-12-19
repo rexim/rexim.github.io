@@ -3,8 +3,9 @@
     src: url(fonts/Alegreya-Regular.ttf);
 }
 body {
-    width: 480px;
+    width: 90%;
     margin: auto;
+    max-width: 480px;
     position: relative;
     background: #181818;
     color: #EEE;
@@ -14,6 +15,14 @@ body {
     margin-top: 35px;
     margin-bottom: 35px;
 }
+
+html {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+}
+
 small {
     font-size: 16px;
 }
