@@ -107,6 +107,7 @@ li:has(a:hover)::before,
 .logo:hover,
 body:has(.logo:hover) li::before {
     border-radius: 50%;
+    transform: scale(calc(2/sqrt(pi)));
 }
 
 li:has(a:active)::before,
