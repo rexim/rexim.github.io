@@ -52,7 +52,7 @@ li::before {
 }
 li {
     position: relative;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
 }
 a:link {
     color: #EEE;
