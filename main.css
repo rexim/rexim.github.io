@@ -62,9 +62,6 @@ a:link {
     transition: text-decoration-color 0.2s;
     text-underline-offset: 2px;
 }
-small a:link {
-    color: #888;
-}
 a:visited {
     color: #EEE;
     text-decoration: underline;
