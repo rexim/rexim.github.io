@@ -1,9 +1,13 @@
 // Generate a new RSS event
 
+TITLE :: "Patreon Added to \"My social media links\"";
+LINK :: "https://rexim.github.io/#socials";
+DESCRIPTION :: #string END
+<p><a href="https://patreon.com/tsoding" target="_blank">patreon.com/tsoding</a></p>
+<p>Please note that I don't get any money from it due to sanctions imposed on the country I live in. It is used purely to limit access to our <a href="https://discord.gg/KehewYS" target="_blank">Discord</a> for moderation purposes.</p>
+END
+
 BASE_URL :: "https://rexim.github.io/";
-TITLE :: "Title";
-LINK :: BASE_URL;
-DESCRIPTION :: "Description";
 
 #run {
     set_build_options_dc(.{ do_output = false });
@@ -21,13 +25,13 @@ DESCRIPTION :: "Description";
 
 rss_event :: (title: string, link: string, description: string, pub_date_in_rfc822: string, guid: string) -> string {
     sb: String_Builder;
-    print_to_builder(*sb, "<item>\n");
-    print_to_builder(*sb, "  <title>%</title>\n", quote_xml_string(title));
-    print_to_builder(*sb, "  <link>%</link>\n", quote_xml_string(link));
-    print_to_builder(*sb, "  <description>%</description>\n", quote_xml_string(description));
-    print_to_builder(*sb, "  <pubDate>%</pubDate>\n", quote_xml_string(pub_date_in_rfc822));
-    print_to_builder(*sb, "  <guid>%</guid>\n", quote_xml_string(guid));
-    print_to_builder(*sb, "</item>\n");
+    print_to_builder(*sb, "    <item>\n");
+    print_to_builder(*sb, "      <title>%</title>\n", quote_xml_string(title));
+    print_to_builder(*sb, "      <link>%</link>\n", quote_xml_string(link));
+    print_to_builder(*sb, "      <description>%</description>\n", cdata(description));
+    print_to_builder(*sb, "      <pubDate>%</pubDate>\n", quote_xml_string(pub_date_in_rfc822));
+    print_to_builder(*sb, "      <guid>%</guid>\n", quote_xml_string(guid));
+    print_to_builder(*sb, "    </item>\n");
     return builder_to_string(*sb);
 }
 
@@ -100,6 +104,11 @@ quote_json_string :: (s: string) -> string {
     return builder_to_string(*sb);
 }
 
+cdata :: (s: string) -> string {
+    assert(!contains(s, "]]>"), "TODO: escape stuff inside of CDATA properly");
+    return sprint("<![CDATA[%]]>", s);
+}
+
 quote_xml_string :: (s: string) -> string {
     sb: String_Builder;
     for x: s {
@@ -119,5 +128,6 @@ quote_xml_string :: (s: string) -> string {
 #import "Basic";
 #import "Compiler";
 #import "File";
+#import "String";
 // TODO: make this cross-platform using Apollo_Time module or what not
 #import "POSIX";

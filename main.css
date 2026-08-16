@@ -15,7 +15,8 @@ body {
     margin-bottom: 35px;
 }
 small {
-    font-size: 16px;
+    color: #888;
+    font-size: 14px;
 }
 h1 {
     color: #EEE;
@@ -60,6 +61,9 @@ a:link {
     text-decoration-color: #73c936;
     transition: text-decoration-color 0.2s;
     text-underline-offset: 2px;
+}
+small a:link {
+    color: #888;
 }
 a:visited {
     color: #EEE;
