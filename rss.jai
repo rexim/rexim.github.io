@@ -105,7 +105,7 @@ quote_json_string :: (s: string) -> string {
 }
 
 cdata :: (s: string) -> string {
-    assert(!contains(s, "]]>"), "TODO: escape stuff inside of CDATA properly");
+    assert(!contains(s, "]]>"), "TODO: escape stuff inside of CDATA properly https://stackoverflow.com/questions/223652/is-there-a-way-to-escape-a-cdata-end-token-in-xml");
     return sprint("<![CDATA[%]]>", s);
 }
 
