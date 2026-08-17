@@ -41,7 +41,7 @@ json_event :: (title: string, link: string, description: string, pub_date_in_rfc
     print_to_builder(*sb, "    \"title\": \"%\",\n",       quote_json_string(title));
     print_to_builder(*sb, "    \"link\": \"%\",\n",        quote_json_string(link));
     print_to_builder(*sb, "    \"description\": \"%\",\n", quote_json_string(description));
-    print_to_builder(*sb, "    \"pubDate\": \"%\",\n",     quote_json_string(pub_date_in_rfc822));
+    print_to_builder(*sb, "    \"pubDate\": \"%\"\n",     quote_json_string(pub_date_in_rfc822));
     print_to_builder(*sb, "}\n");
     return builder_to_string(*sb);
 }
