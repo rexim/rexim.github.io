@@ -1,10 +1,9 @@
 // Generate a new RSS event
 
-TITLE :: "Patreon Added to \"My social media links\"";
-LINK :: "https://rexim.github.io/#socials";
+TITLE :: "First Blog Post: Building Dn-FamiTracker on Linux";
+LINK :: "https://rexim.github.io/blog/building-dn-famitracker-on-linux.html";
 DESCRIPTION :: #string END
-<p><a href="https://patreon.com/tsoding" target="_blank">patreon.com/tsoding</a></p>
-<p>Please note that I don't get any money from it due to sanctions imposed on the country I live in. It is used purely to limit access to our <a href="https://discord.gg/KehewYS" target="_blank">Discord</a> for moderation purposes.</p>
+<p>I recently needed to cross-compile <a href="https://github.com/Dn-Programming-Core-Management/Dn-FamiTracker">Dn-FamiTracker</a> on Linux for Windows and I successfully managed to do that. So I decided to document the process in this blog post for anybody who wants to do the same in the future.</p>
 END
 
 BASE_URL :: "https://rexim.github.io/";

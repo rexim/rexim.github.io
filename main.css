@@ -2,6 +2,10 @@
     font-family: Alegreya;
     src: url(fonts/Alegreya-Regular.ttf);
 }
+@font-face {
+    font-family: Iosevka-Light;
+    src: url(fonts/Iosevka-Light.woff2);
+}
 body {
     width: 480px;
     margin: auto;
@@ -10,7 +14,7 @@ body {
     color: #EEE;
     font-family: Alegreya;
     font-size: 20px;
-    line-height: 22px;
+    line-height: 28px;
     margin-top: 35px;
     margin-bottom: 35px;
 }
@@ -18,20 +22,48 @@ small {
     color: #888;
     font-size: 14px;
 }
+samp {
+    display: block;
+    font-family: Iosevka-Light;
+    font-size: 16px;
+    padding: 20px;
+    text-wrap: nowrap;
+}
+code {
+    font-family: Iosevka-Light;
+    font-size: 16px;
+    border: solid 1px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 4px;
+    background: #202020;
+    text-wrap: nowrap;
+}
 h1 {
     color: #EEE;
     font-size: 48px;
     margin-bottom: 45px;
+    text-wrap: nowrap;
 }
 h2 {
     color: #EEE;
-    font-size: 32px;
+    font-size: 42px;
     margin-bottom: 40px;
+    text-wrap: nowrap;
 }
 h3 {
     color: #EEE;
-    font-size: 24px;
+    font-size: 36px;
     margin-bottom: 35px;
+    text-wrap: nowrap;
+}
+h4 {
+    color: #EEE;
+    font-size: 30px;
+    margin-bottom: 35px;
+    text-wrap: nowrap;
 }
 p {
     margin-bottom: 35px;
@@ -90,7 +122,13 @@ h1 a:link {
     text-decoration-thickness: 4px;
 }
 h2 a:link {
-    text-decoration-thickness: 3px;
+    text-decoration-thickness: 4px;
+}
+h3 a:link {
+    text-decoration-thickness: 4px;
+}
+h4 a:link {
+    text-decoration-thickness: 4px;
 }
 .logo {
     border: none;

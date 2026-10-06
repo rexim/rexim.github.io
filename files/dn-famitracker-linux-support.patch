@@ -1,0 +1,45 @@
+From 6841578accc9ad4d63c5ad73ca35d98d15c498a3 Mon Sep 17 00:00:00 2001
+From: rexim <reximkut@gmail.com>
+Date: Tue, 6 Oct 2026 03:36:25 +0700
+Subject: [PATCH] Make it compilable on Linux with msvc-wine
+
+---
+ CMakeLists.txt          |  3 ++-
+ Source/drivers/build.sh | 11 +++++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+ create mode 100755 Source/drivers/build.sh
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 20eba795..ad3194e8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -110,7 +110,8 @@ add_custom_command(
+             ${DNNSF_SRC_DIR}/asm/s5b.s
+             ${DNNSF_SRC_DIR}/asm/periods.s
+             ${DNNSF_SRC_DIR}/asm/vibrato.s
+-    COMMAND call ${DNNSF_SRC_DIR}/build.cmd
++    # COMMAND call ${DNNSF_SRC_DIR}/build.cmd
++    COMMAND ${DNNSF_SRC_DIR}/build.sh
+     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+     COMMENT "Building NSF driver headers."
+     VERBATIM)
+diff --git a/Source/drivers/build.sh b/Source/drivers/build.sh
+new file mode 100755
+index 00000000..f3cc70f0
+--- /dev/null
++++ b/Source/drivers/build.sh
+@@ -0,0 +1,11 @@
++#!/bin/bash
++
++set -xe
++
++cd "$(dirname "${BASH_SOURCE[0]}")"
++drivers="$PWD"
++cd asm/build
++
++python3 build_engine.py #"$1" "$2"
++cp drivers/* "$drivers"/
++rm -rf drivers
+-- 
+2.39.5
+

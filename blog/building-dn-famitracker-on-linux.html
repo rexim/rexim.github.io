@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>rexim - Building Dn-FamiTracker on Linux</title>
+    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="stylesheet" href="../reset.css" />
+    <link rel="stylesheet" href="../main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.xml"/>
+    <meta property="og:site_name" content="rexim" />
+    <meta property="og:title" content="rexim - Building Dn-FamiTracker on Linux" />
+    <meta property="og:url" content="https://rexim.github.io/blog/building-dn-famitracker-on-linux.html" />
+    <meta property="og:image" content="https://rexim.github.io/files/dn-famitracker-linux-thumbnail.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+<body>
+  <button class="logo"></button>
+  <h1 id="title"><a href="/#title">rexim</a></h1>
+
+  <h2 id="building-dn-famitracker-on-linux"><a href="#building-dn-famitracker-on-linux">Building Dn-FamiTracker on Linux</a></h2>
+
+  <p><small>rexim - 2026-10-07</small></p>
+
+  <video loop controls width="480px">
+    <source src="../files/dn-famitracker-linux.mp4" />
+  </video>
+
+  <p><small>Track: <a href="https://nu11.bandcamp.com/track/face-your-destiny">Face Your Destiny by nu11</a></small></p>
+
+  <p>I recently needed to cross-compile <a href="https://github.com/Dn-Programming-Core-Management/Dn-FamiTracker">Dn-FamiTracker</a> on Linux for Windows and I successfully managed to do that. So I decided to document the process in this blog post for anybody who wants to do the same in the future.</p>
+
+  <p>Because of the nature of the problem the information in this blog post will be outdated. Things change. So you gotta be prepared to adapt to your current environment. What's important is not the specific list of actions (otherwise this blog post would've been a bash script), but the understanding of what we are doing.</p>
+
+  <h3 id="msvc-in-wine"><a href="#msvc-in-wine">MSVC in Wine</a></h3>
+
+  <p>Dn-FamiTracker heavily depends on MSVC. It even uses <a href="https://learn.microsoft.com/en-us/cpp/mfc/mfc-desktop-applications?view=msvc-180">MFC</a> as its major UI framework. Luckily there is an awesome project <a href="https://github.com/mstorsjo/msvc-wine"><code>mstorsjo/msvc-wine</code></a> which can help to run all this Microsoft craziness in <a href="https://www.winehq.org/">Wine</a>.</p>
+
+  <p>The first step is to install Wine. It's usually available in the majority of Linux distros. Just use your package manage to install it.</p>
+
+  <p>The second step is to clone <a href="https://github.com/mstorsjo/msvc-wine"><code>mstorsjo/msvc-wine</code></a> somewhere (which implies that you have <a href="https://git-scm.com/">Git</a> installed, it's also available in the majority of Linux distros)</p>
+
+  <p>
+    <samp>
+      $ git clone https://github.com/mstorsjo/msvc-wine.git <br />
+      $ cd msvc-wine
+    </samp>
+  </p>
+  
+  <h4 id="problem-no-mfc"><a href="#problem-no-mfc">Problem: No MFC</a></h4>
+
+  <p>At the time of writing this blog post the latest commit was <a href="https://github.com/mstorsjo/msvc-wine/tree/514f8ea34842cd6d831804d0e9658d3a32870ae1"><code>514f8ea</code></a>. The problem with this commit is that it has no ability to download and install MFC (which is a crucial component of Dn-FamiTracker). The fix for that was proposed in PR <a href="https://github.com/mstorsjo/msvc-wine/pull/223"><code>#223</code></a>. If by the time you are reading this blog post this PR is merged you probably don't need to do anything about this problem. If it isn't you gotta apply the patch from this PR.</p>
+
+  <p>For the worst case scenario (the PR is never merged and the author deleted their fork) I backed up the patch on this website. You can apply it like this:</p>
+
+  <p>
+    <samp>
+      $ wget https://rexim.github.io/files/msvc-wine-mfc.patch <br />
+      $ git am msvc-wine-mfc.patch
+    </samp>
+  </p>
+
+  <p>I strongly recommend to read all the patches we are downloading and applying in this blog post to understand what they are doing exactly.</p>
+
+  <h4 id="problem-corrupted-rc-files"><a href="#problem-corrupted-rc-files">Problem: Corrupted RC Files</a></h4>
+
+  <p>One of the things <a href="https://github.com/mstorsjo/msvc-wine"><code>mstorsjo/msvc-wine</code></a>'s installation script does is it tries to fix casing of some of the headers. Windows' file system is case insensitive while Linux's is, so this makes sense.</p>
+
+  <p>But for some reason this specific part of it <a href="https://github.com/mstorsjo/msvc-wine/blob/514f8ea34842cd6d831804d0e9658d3a32870ae1/install.sh#L91-L95"><code>install.sh#L91-L95</code></a> corrupts some of the important RC files in <code>VC/Tools/MSVC/&lt;version&gt;/atlmfc/include/</code> which results in a failure of Dn-FamiTracker to build its own RC files. It fails with an obscure <code>error RC2255: named STRINGTABLEs are not allowed</code> which according to this <a href="https://stackoverflow.com/a/28176173">StackOverflow Answer</a> might be due to incorrect encoding of the RC files.</p>
+
+  <p>My hypothesis so far is that the header fixing process has a bug that screws up encoding. I didn't research any further and simply disabled this part of the script:</p>
+
+  <p>
+    <samp>
+      $ wget https://rexim.github.io/files/msvc-wine-fixinclude.patch<br />
+      $ git am msvc-wine-fixinclude.patch
+    </samp>
+  </p>
+
+  <p>This made Dn-FamiTracker compile successfully in the end.</p>
+
+  <h4 id="msvc-in-wine-installation"><a href="#msvc-in-wine-installation">MSVC in Wine Installation</a></h4>
+
+  <p>
+    <samp>
+      $ ./vsdownload.py --language en --with-mfc --dest ~/my_msvc/opt/msvc<br />
+      <br />
+      ... agree to the terms ...<br />
+      <br />
+      $ ./install.sh ~/my_msvc/opt/msvc<br />
+      $ export PATH=~/my_msvc/opt/msvc/bin/x64:$PATH<br />
+    </samp>
+  </p>
+
+  <p><code>vsdownload.py</code> may take some time to download and unpack MSVC stuff. After the installation is done it's probably a good idea to exit the <code>msvc-wine</code> folder since we are done with it.</p>
+
+  <p>
+    <samp>
+      $ cd ..
+    </samp>
+  </p>
+
+  <h3 id="dn-famitracker"><a href="#dn-famitracker">Dn-FamiTracker</a></h3>
+
+  <p>At the time of writting this blog post the latest version of Dn-FamiTracker was <code>0.5.3</code>. So we are gonna be building that version specifically.</p>
+
+  <p>
+    <samp>
+      $ git clone \<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--recursive \<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--branch Dn0.5.3.0 \<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://github.com/Dn-Programming-Core-Management/Dn-FamiTracker.git<br/>
+      $ cd Dn-FamiTracker
+    </samp>
+  </p>
+
+  <p>We are going to be using <a href="https://cmake.org/">CMake</a> to build the project. Should be available in the majority of Linux distros.</p>
+
+  <p>Another important dependency is <a href="https://cc65.github.io/">cc65</a>. Dn-FamiTracker needs it to build NES drivers. Some distros have it, some don't. Make sure <code>ca65</code> and <code>ld65</code> utilities are available in <code>$PATH</code>.</p>
+
+  <h4 id="problem-cmd-scripts-on-linux"><a href="#problem-cmd-scripts-on-linux">Problem: CMD Scripts on Linux</a></h4>
+
+  <p>One of the things the build process of Dn-FamiTracker will try to do is to run <a href="https://github.com/Dn-Programming-Core-Management/Dn-FamiTracker/blob/Dn0.5.3.0/Source/drivers/build.cmd"><code>Source/drivers/build.cmd</code></a> to build the NES drivers. On Linux it will fail because you can't run CMD scripts there. The solution is to simply rewrite this script in Bash. I made a patch for this.<p>
+
+  <p>
+    <samp>
+      $ wget https://rexim.github.io/files/dn-famitracker-linux-support.patch<br />
+      $ git am dn-famitracker-linux-support.patch
+    </samp>
+  </p>
+
+  <h4 id="building-dn-famitracker"><a href="#building-dn-famitracker">Building Dn-FamiTracker</a></h4>
+
+  <p>
+    <samp>
+      $ mkdir build<br />
+      $ cd build<br />
+      $ CC=cl CXX=cl cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_SYSTEM_NAME=Windows<br />
+      $ make
+    </samp>
+  </p>
+
+  <p>After the build is done you can try to run the executable in wine</p>
+
+  <p>
+    <samp>
+      $ wine Dn-FamiTracker.exe
+    </samp>
+  </p>
+  <small>&copy 2026 Alexey Kutepov</small>
+</body>
+</html>
