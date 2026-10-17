@@ -1,9 +1,9 @@
 // Generate a new RSS event
 
-TITLE :: "First Blog Post: Building Dn-FamiTracker on Linux";
-LINK :: "https://rexim.github.io/blog/building-dn-famitracker-on-linux.html";
+TITLE :: "LinkedIn Added to \"My social media links\"";
+LINK :: "https://rexim.github.io/#socials";
 DESCRIPTION :: #string END
-<p>I recently needed to cross-compile <a href="https://github.com/Dn-Programming-Core-Management/Dn-FamiTracker">Dn-FamiTracker</a> on Linux for Windows and I successfully managed to do that. So I decided to document the process in this blog post for anybody who wants to do the same in the future.</p>
+<p>Completely forgor about this cesspool of a website, but I do have a profile there. I don't use it usually.</p>
 END
 
 BASE_URL :: "https://rexim.github.io/";
